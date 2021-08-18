@@ -1,0 +1,48 @@
+local args = {
+    [1] = "You have now unlocked all Emotes",
+    [2] = "All"
+}
+
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+
+wait(2)
+
+local args = {
+    [1] = "You Can Now Use /e Shuffle, /e Fist.",
+    [2] = "All"
+}
+
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+
+wait(1)
+
+local args = {
+    [1] = "/e Superman, /e Twist.",
+    [2] = "All"
+}
+
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+
+function equal(msg)
+   if msg:lower():sub(1,string.len("/e shuffle"))=="/e shuffle" then
+       return 277955949
+   elseif msg:lower():sub(1,string.len("/e superman"))=="/e superman" then
+       return 277929891
+   elseif msg:lower():sub(1,string.len("/e twist"))=="/e twist" then
+       return 280865087
+   elseif msg:lower():sub(1,string.len("/e fist"))=="/e fist" then
+       return 280872840
+   elseif msg:lower()=="/e" then
+       return 0
+   end
+end
+game.Players.LocalPlayer.Chatted:Connect(function(msg)
+   if equal(msg)~="" then
+       if game.Players.LocalPlayer.Character then
+           local a       = Instance.new("Animation")
+           a.AnimationId = "rbxassetid://"..equal(msg)
+           load          = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(a)
+           load:Play()
+       end
+   end
+end)
